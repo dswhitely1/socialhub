@@ -3,18 +3,18 @@ import type {
   userSchema,
   createUserSchema,
   updateUserSchema,
-} from "../schemas/user.schema.js";
+} from "../schemas/user.schema";
 import type {
   postSchema,
   createPostSchema,
   feedQuerySchema,
-} from "../schemas/post.schema.js";
+} from "../schemas/post.schema";
 import type {
   platformConnectionSchema,
   connectPlatformSchema,
   notificationSchema,
   notificationQuerySchema,
-} from "../schemas/platform.schema.js";
+} from "../schemas/platform.schema";
 
 export type User = z.infer<typeof userSchema>;
 export type CreateUser = z.infer<typeof createUserSchema>;

@@ -1,2 +1,2 @@
-export * from "./platforms.js";
-export * from "./errors.js";
+export * from "./platforms";
+export * from "./errors";

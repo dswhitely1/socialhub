@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PLATFORMS } from "../constants/platforms.js";
+import { PLATFORMS } from "../constants/platforms";
 
 export const postSchema = z.object({
   id: z.string().uuid(),

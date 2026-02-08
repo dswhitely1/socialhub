@@ -1,4 +1,5 @@
 import { Queue, Worker } from "bullmq";
+import type { FastifyBaseLogger } from "fastify";
 import { z } from "zod";
 import { getRedis } from "../lib/redis.js";
 
@@ -11,18 +12,26 @@ const feedPollingJobSchema = z.object({
 
 export function createFeedPollingQueue() {
   const connection = getRedis();
-  return new Queue(QUEUE_NAME, { connection });
+  return new Queue(QUEUE_NAME, {
+    connection,
+    defaultJobOptions: {
+      attempts: 3,
+      backoff: { type: "exponential", delay: 5000 },
+      removeOnComplete: 100,
+      removeOnFail: 500,
+    },
+  });
 }
 
-export function createFeedPollingWorker() {
+export function createFeedPollingWorker(logger: FastifyBaseLogger) {
   const connection = getRedis();
   return new Worker(
     QUEUE_NAME,
     async (job) => {
-      // TODO: poll platform feeds for the given user/platform
       const { userId, platform } = feedPollingJobSchema.parse(job.data);
-      console.log(`Polling feed for user ${userId} on ${platform}`);
+      logger.info({ jobId: job.id, userId, platform }, "Polling feed");
+      // TODO: poll platform feeds for the given user/platform
     },
-    { connection },
+    { connection, concurrency: 5 },
   );
 }

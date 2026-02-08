@@ -34,8 +34,8 @@ async function main() {
     return { status: "ok" };
   });
 
-  await fastify.listen({ port: env.API_PORT, host: "0.0.0.0" });
-  fastify.log.info(`API server running on port ${env.API_PORT}`);
+  await fastify.listen({ port: env.API_PORT, host: env.API_HOST });
+  fastify.log.info(`API server running on ${env.API_HOST}:${env.API_PORT}`);
 }
 
 main().catch((err) => {

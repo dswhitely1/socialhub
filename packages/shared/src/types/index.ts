@@ -12,9 +12,11 @@ import type {
 import type {
   platformConnectionSchema,
   connectPlatformSchema,
+} from "../schemas/platform.schema";
+import type {
   notificationSchema,
   notificationQuerySchema,
-} from "../schemas/platform.schema";
+} from "../schemas/notification.schema";
 
 export type User = z.infer<typeof userSchema>;
 export type CreateUser = z.infer<typeof createUserSchema>;

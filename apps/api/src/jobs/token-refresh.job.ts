@@ -1,4 +1,5 @@
 import { Queue, Worker } from "bullmq";
+import type { FastifyBaseLogger } from "fastify";
 import { z } from "zod";
 import { getRedis } from "../lib/redis.js";
 
@@ -10,18 +11,26 @@ const tokenRefreshJobSchema = z.object({
 
 export function createTokenRefreshQueue() {
   const connection = getRedis();
-  return new Queue(QUEUE_NAME, { connection });
+  return new Queue(QUEUE_NAME, {
+    connection,
+    defaultJobOptions: {
+      attempts: 3,
+      backoff: { type: "exponential", delay: 5000 },
+      removeOnComplete: 100,
+      removeOnFail: 500,
+    },
+  });
 }
 
-export function createTokenRefreshWorker() {
+export function createTokenRefreshWorker(logger: FastifyBaseLogger) {
   const connection = getRedis();
   return new Worker(
     QUEUE_NAME,
     async (job) => {
-      // TODO: refresh platform tokens before they expire
       const { connectionId } = tokenRefreshJobSchema.parse(job.data);
-      console.log(`Refreshing token for connection ${connectionId}`);
+      logger.info({ jobId: job.id, connectionId }, "Refreshing token");
+      // TODO: refresh platform tokens before they expire
     },
-    { connection },
+    { connection, concurrency: 3 },
   );
 }

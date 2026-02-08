@@ -11,6 +11,8 @@ export default tseslint.config(
       "**/.expo/**",
       "**/.turbo/**",
       "**/coverage/**",
+      "apps/mobile/babel.config.js",
+      "apps/mobile/metro.config.js",
     ],
   },
   js.configs.recommended,

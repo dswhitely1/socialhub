@@ -16,6 +16,16 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
         httpBatchLink({
           url: `${process.env.NEXT_PUBLIC_API_URL}/trpc`,
           transformer: superjson,
+          async headers() {
+            try {
+              const res = await fetch("/api/auth/token");
+              if (!res.ok) return {};
+              const { token } = (await res.json()) as { token: string | null };
+              return token ? { authorization: `Bearer ${token}` } : {};
+            } catch {
+              return {};
+            }
+          },
         }),
       ],
     }),

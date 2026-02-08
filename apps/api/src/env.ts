@@ -7,7 +7,7 @@ const envSchema = z.object({
   REDIS_URL: z.string().url(),
   MEILI_URL: z.string().url(),
   MEILI_MASTER_KEY: z.string(),
-  AUTH_SECRET: z.string().min(1),
+  AUTH_SECRET: z.string().min(32, "AUTH_SECRET must be at least 32 characters"),
   CORS_ORIGIN: z.string().default("http://localhost:3000"),
 });
 

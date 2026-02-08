@@ -1,9 +1,10 @@
 import type { FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import { appRouter } from "../trpc/router.js";
 import { createContext } from "../trpc/context.js";
 
-export async function trpcPlugin(fastify: FastifyInstance) {
+async function trpcPluginImpl(fastify: FastifyInstance) {
   await fastify.register(fastifyTRPCPlugin, {
     prefix: "/trpc",
     trpcOptions: {
@@ -12,3 +13,5 @@ export async function trpcPlugin(fastify: FastifyInstance) {
     },
   });
 }
+
+export const trpcPlugin = fp(trpcPluginImpl);

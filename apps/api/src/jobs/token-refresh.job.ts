@@ -1,7 +1,12 @@
 import { Queue, Worker } from "bullmq";
+import { z } from "zod";
 import { getRedis } from "../lib/redis.js";
 
 const QUEUE_NAME = "token-refresh";
+
+const tokenRefreshJobSchema = z.object({
+  connectionId: z.string(),
+});
 
 export function createTokenRefreshQueue() {
   const connection = getRedis();
@@ -14,7 +19,7 @@ export function createTokenRefreshWorker() {
     QUEUE_NAME,
     async (job) => {
       // TODO: refresh platform tokens before they expire
-      const { connectionId } = job.data as { connectionId: string };
+      const { connectionId } = tokenRefreshJobSchema.parse(job.data);
       console.log(`Refreshing token for connection ${connectionId}`);
     },
     { connection },

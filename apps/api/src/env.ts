@@ -11,5 +11,12 @@ const envSchema = z.object({
   CORS_ORIGIN: z.string().default("http://localhost:3000"),
 });
 
-export const env = envSchema.parse(process.env);
-export type Env = z.infer<typeof envSchema>;
+const parsed = envSchema.parse(process.env);
+
+export const env = {
+  ...parsed,
+  /** Parsed CORS origins — supports comma-separated values for multi-origin. */
+  CORS_ORIGINS: parsed.CORS_ORIGIN.split(",").map((o) => o.trim()),
+};
+
+export type Env = typeof env;

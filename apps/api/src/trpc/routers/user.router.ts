@@ -12,7 +12,7 @@ export const userRouter = router({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ input }) => {
       // TODO: fetch user from db
-      return { id: input.id, name: "TODO", email: "TODO" };
+      return { id: input.id, name: "TODO", image: null as string | null };
     }),
 
   update: protectedProcedure

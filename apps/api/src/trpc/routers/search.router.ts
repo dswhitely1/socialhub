@@ -9,8 +9,9 @@ export const searchRouter = router({
         limit: z.number().int().min(1).max(50).default(20),
       }),
     )
-    .query(async ({ input }) => {
-      // TODO: search posts via Meilisearch
+    .query(async ({ ctx, input }) => {
+      // TODO: search posts via Meilisearch, scoped to ctx.userId's connected platforms
+      void ctx.userId;
       return { results: [], query: input.query };
     }),
 });

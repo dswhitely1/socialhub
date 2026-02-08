@@ -3,22 +3,25 @@ import { connectPlatformSchema } from "@socialhub/shared";
 import { z } from "zod";
 
 export const platformRouter = router({
-  list: protectedProcedure.query(async () => {
-    // TODO: fetch connected platforms for user
+  list: protectedProcedure.query(async ({ ctx }) => {
+    // TODO: fetch connected platforms for user, filtered by ctx.userId
+    void ctx.userId;
     return [];
   }),
 
   connect: protectedProcedure
     .input(connectPlatformSchema)
-    .mutation(async ({ input }) => {
-      // TODO: exchange code for tokens, store connection
+    .mutation(async ({ ctx, input }) => {
+      // TODO: exchange code for tokens, store connection for ctx.userId
+      void ctx.userId;
       return { platform: input.platform, connected: true };
     }),
 
   disconnect: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
-    .mutation(async ({ input }) => {
-      // TODO: remove platform connection
+    .mutation(async ({ ctx, input }) => {
+      // TODO: remove platform connection — verify ctx.userId owns this connection
+      void ctx.userId;
       return { id: input.id, disconnected: true };
     }),
 });

@@ -1,0 +1,1 @@
+Written to `/home/don/dev/socialhub/.claude/skills/react/references/components.md` — covers server vs client components, shared UI in packages/ui, variant-based component pattern, layout composition, mobile RN components, and anti-patterns (static data in components, index keys, mixing server/client concerns).

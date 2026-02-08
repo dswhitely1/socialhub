@@ -1,0 +1,1 @@
+Written to `/home/don/dev/socialhub/.claude/skills/react/references/data-fetching.md` — covers tRPC query patterns, mutations with cache invalidation, optimistic updates, server-side vanilla client, mobile auth headers, and anti-patterns (useEffect fetching, chained queries, missing invalidation).

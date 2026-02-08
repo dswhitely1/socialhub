@@ -1,0 +1,1 @@
+Written to `/home/don/dev/socialhub/.claude/skills/react/references/hooks.md` — covers lazy initialization, Zustand store hooks, tRPC query hooks, custom hook guidelines, and anti-patterns (useEffect data fetching, derived state in state, missing "use client").

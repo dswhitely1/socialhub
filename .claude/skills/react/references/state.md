@@ -1,0 +1,1 @@
+Written to `/home/don/dev/socialhub/.claude/skills/react/references/state.md` — covers state taxonomy (server/UI/form/URL), Zustand store conventions, React Query as server state, cross-store composition, and anti-patterns (duplicating server data, prop drilling, derived state, monolithic stores).

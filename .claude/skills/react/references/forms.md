@@ -1,0 +1,1 @@
+Written to `/home/don/dev/socialhub/.claude/skills/react/references/forms.md` — includes WARNING for missing react-hook-form, current useState approach, form + tRPC mutation pattern, Zod validation sharing, and anti-patterns (uncontrolled inputs, client-only validation, missing submit disable).
